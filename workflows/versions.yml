@@ -1,0 +1,32 @@
+name: Update versions
+
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Update versions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout merged commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{github.event.pull_request.merge_commit_sha}}
+      - name: Update versions
+        id: versions
+        run: |-
+          : '${{github.event.pull_request.title}}'; version="${_#*release }"
+
+          sed -e 's/"version": "[^\"]*"/"version": "'$version'"/g' -i package.json
+          sed -e 's/version = "[^\"]*"/version = "'$version'"/g' -i Cargo.toml
+
+          printf >> "$GITHUB_OUTPUT" 'message=%q\n' "chore(manifests): bump version to $version"
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: package.json Cargo.toml
+          commit_message: ${{steps.versions.outputs.message}}
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>

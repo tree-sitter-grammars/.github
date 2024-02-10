@@ -1,0 +1,25 @@
+name: Fuzz parser
+
+on:
+  workflow_call:
+    inputs:
+      language:
+        type: string
+        required: true
+      scanner:
+        type: string
+        default: src/scanner.c
+
+jobs:
+  fuzz:
+    name: Parser fuzzing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Fuzz parser
+        uses: vigoux/tree-sitter-fuzz-action@v1.1
+        with:
+          language: ${{inputs.language}}
+          external-scanner: ${{inputs.scanner}}
+          time: 60

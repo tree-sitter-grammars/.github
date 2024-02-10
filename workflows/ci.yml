@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  workflow_call:
+    inputs:
+      test-grammar:
+        type: boolean
+        default: true
+      test-library:
+        type: boolean
+        default: false
+
+jobs:
+  grammar:
+    name: Test grammar
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-14]
+    if: inputs.test-grammar == true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{vars.NODE_VERSION}}
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm test
+  rust-lib:
+    name: Test Rust library
+    runs-on: ubuntu-latest
+    if: inputs.test-library == true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+      - name: Run tests
+        run: cargo test
