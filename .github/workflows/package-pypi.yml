@@ -28,7 +28,8 @@ jobs:
       - name: Upload wheel artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: pypi-wheels
+          retention-days: 1
+          name: pypi-wheels-${{matrix.os}}
           path: dist/*.whl
 
   upload_pypi:
@@ -38,13 +39,14 @@ jobs:
     environment:
       name: pypi
       url: https://pypi.org/project/${{inputs.project-name}}/
-    permissions:
-      id-token: write
+    # permissions:
+    #   id-token: write
     steps:
       - name: Download wheel artifacts
         uses: actions/download-artifact@v4
         with:
-          name: pypi-wheels
+          merge-multiple: true
+          pattern: pypi-wheels-*
           path: dist
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1.8
