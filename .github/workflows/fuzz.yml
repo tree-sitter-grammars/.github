@@ -70,7 +70,7 @@ jobs:
 
           "$FUZZER_DIR/fuzzer" -dict="$FUZZER_DIR/dict" \
             -timeout="$TIMEOUT" -max_total_time="$MAX_TOTAL_TIME" \
-            -artifact_prefix="$FUZZER_DIR/artifacts" "$FUZZER_DIR/out"
+            -artifact_prefix="$FUZZER_DIR/artifacts/" "$FUZZER_DIR/out"
         env:
           LANG: ${{inputs.language}}
           LANG_DIR: ${{inputs.directory}}
