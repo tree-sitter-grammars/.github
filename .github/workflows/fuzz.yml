@@ -31,10 +31,6 @@ jobs:
           cd /tmp/tree-sitter && make && sudo make PREFIX=/usr install
       - name: Fuzz parser
         run: |-
-          LANG='${{inputs.language}}'
-          LANG_DIR='${{inputs.directory}}'
-          TIMEOUT='${{inputs.timeout}}'
-          MAX_TOTAL_TIME='${{inputs.time}}'
           JQ_FILTER='.. | select((.type? == "STRING" or (.type? == "ALIAS" and .named? == false)) and .value? != "") | .value'
 
           mkdir -p "$FUZZER_DIR"/{out,artifacts}
@@ -75,6 +71,11 @@ jobs:
           "$FUZZER_DIR/fuzzer" -dict="$FUZZER_DIR/dict" \
             -timeout="$TIMEOUT" -max_total_time="$MAX_TOTAL_TIME" \
             -artifact_prefix="$FUZZER_DIR/artifacts" "$FUZZER_DIR/out"
+        env:
+          LANG: ${{inputs.language}}
+          LANG_DIR: ${{inputs.directory}}
+          TIMEOUT: ${{inputs.timeout}}
+          MAX_TOTAL_TIME: ${{inputs.time}}
       - name: Upload fuzzer artifacts
         uses: actions/upload-artifact@v4
         with:
