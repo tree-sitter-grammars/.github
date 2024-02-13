@@ -20,14 +20,14 @@ jobs:
     name: Parser fuzzing
     runs-on: ubuntu-latest
     env:
-      FUZZER_DIR: /tmp/fuzzer
+      FUZZER_DIR: ${{runner.temp}}/fuzzer
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install tree-sitter
         run: |-
-          git clone --depth=1 https://github.com/tree-sitter/tree-sitter /tmp/tree-sitter
-          cd /tmp/tree-sitter && make && sudo make PREFIX=/usr install
+          git clone --depth=1 https://github.com/tree-sitter/tree-sitter '${{runner.temp}}/tree-sitter'
+          cd '${{runner.temp}}/tree-sitter' && make && sudo make PREFIX=/usr install
       - name: Fuzz parser
         run: |-
           JQ_FILTER='.. | select((.type? == "STRING" or (.type? == "ALIAS" and .named? == false)) and .value? != "") | .value'

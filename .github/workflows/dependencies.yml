@@ -52,7 +52,7 @@ jobs:
             'node_modules/tree-sitter-${{inputs.parent-name}}/${{inputs.scanner-file}}'
           git diff '${{inputs.scanner-file}}'
       - name: Create pull request body
-        run: jq -r '${{inputs.jq-script}}' package-lock.json > /tmp/body.md
+        run: jq -r '${{inputs.jq-script}}' package-lock.json > '${{runner.temp}}/body.md'
       - name: Commit changes
         id: auto_commit
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -67,7 +67,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         if: steps.outputs.auto_commit.changes_detected == 'true'
         with:
-          body-path: /tmp/body.md
+          body-path: ${{runner.temp}}/body.md
           title: "chore(deps): update & regenerate parser"
           branch: ${{inputs.pr-branch}}
           delete-branch: true
