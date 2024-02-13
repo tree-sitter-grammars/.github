@@ -5,7 +5,6 @@ on:
     inputs:
       language:
         type: string
-        required: true
       directory:
         type: string
         default: .
@@ -32,6 +31,7 @@ jobs:
       - name: Fuzz parser
         run: |-
           JQ_FILTER='.. | select((.type? == "STRING" or (.type? == "ALIAS" and .named? == false)) and .value? != "") | .value'
+          [[ -n $LANG_NAME ]] || LANG_NAME="${GITHUB_REPOSITORY##*/tree-sitter-}"
 
           mkdir -p "$FUZZER_DIR"/{out,artifacts}
 
@@ -41,14 +41,14 @@ jobs:
             - "$LANG_DIR/src/scanner.c" "$LANG_DIR/src/parser.c" -o "$FUZZER_DIR/fuzzer" <<END
           #include <tree_sitter/api.h>
 
-          TSLanguage *tree_sitter_$LANG();
+          TSLanguage *tree_sitter_$LANG_NAME();
 
           int LLVMFuzzerTestOneInput(const uint8_t * data, const size_t len) {
             // Create a parser.
             TSParser *parser = ts_parser_new();
 
             // Set the parser's language.
-            ts_parser_set_language(parser, tree_sitter_$LANG());
+            ts_parser_set_language(parser, tree_sitter_$LANG_NAME());
 
             // Build a syntax tree based on source code stored in a string.
             TSTree *tree = ts_parser_parse_string(
@@ -72,7 +72,7 @@ jobs:
             -timeout="$TIMEOUT" -max_total_time="$MAX_TOTAL_TIME" \
             -artifact_prefix="$FUZZER_DIR/artifacts/" "$FUZZER_DIR/out"
         env:
-          LANG: ${{inputs.language}}
+          LANG_NAME: ${{inputs.language}}
           LANG_DIR: ${{inputs.directory}}
           TIMEOUT: ${{inputs.timeout}}
           MAX_TOTAL_TIME: ${{inputs.time}}
