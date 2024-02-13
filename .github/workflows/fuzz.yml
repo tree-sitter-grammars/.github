@@ -43,8 +43,6 @@ jobs:
           clang -fsanitize=fuzzer,address,undefined -O0 -g -Wall -xc \
             -I"$LANG_DIR/src" $(pkg-config --cflags --libs tree-sitter) \
             - "$LANG_DIR/src/scanner.c" "$LANG_DIR/src/parser.c" -o "$FUZZER_DIR/fuzzer" <<END
-          #include <stdio.h>
-          #include <stdlib.h>
           #include <tree_sitter/api.h>
 
           TSLanguage *tree_sitter_$LANG();
