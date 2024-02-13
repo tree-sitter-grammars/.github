@@ -4,18 +4,16 @@ Hey and welcome to the Tree-Sitter-Grammars organization! This org contains a
 well-maintained bundle of grammar repositories for any downstream users to easily
 find a grammar they're interested in.
 
+## Chat
+
+If you'd like to chat about tree-sitter, you can do so on [Matrix] or [Discord].
+
 ## Contributing
 
-If you have a grammar you're interested in contributing, please open an issue [here](https://github.com/tree-sitter-grammars/.github/issues).
+If you want to create a grammar, or have already made one that you'd like to contribute,
+please read the [guidelines] and create a discussion [here][discussions] when your grammar is ready.
 
-### Grammar Requirements
-
-1. No scanner written in C++, sorry.
-2. Queries must use the last-wins precedence, a-la Neovim style.
-3. You should be somewhat active in maintaining it; if there's no need for
-   maintenance that's totally okay, but you shouldn't let issues pile up for months
-   to years on end.
-4. You must follow SemVer (Semantic Versioning) for your grammar, breaking changes
-   must result in a version major bump, new features in a minor bump, and bug
-   fixes in a patch bump.
-5. (Optional) You should use conventional commits
+[Matrix]: https://matrix.to/#/#tree-sitter-chat:matrix.org
+[Discord]: https://discord.gg/w7nTvsVJhm
+[guidelines]: https://github.com/tree-sitter-grammars/.github/blob/main/CONTRIBUTING.md
+[issues]: https://github.com/tree-sitter-grammars/.github/discussions/new?category=transfer
