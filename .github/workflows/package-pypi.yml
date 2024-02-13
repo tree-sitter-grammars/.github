@@ -13,7 +13,7 @@ on:
 
 jobs:
   build_wheels:
-    name: Build on ${{matrix.os}}
+    name: Build on ${{runner.os}}
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -28,9 +28,9 @@ jobs:
       - name: Upload wheel artifacts
         uses: actions/upload-artifact@v4
         with:
-          retention-days: 1
-          name: pypi-wheels-${{matrix.os}}
           path: dist/*.whl
+          name: ${{runner.os}}-wheels
+          retention-days: 1
 
   upload_pypi:
     name: Upload wheels to PyPI
@@ -45,9 +45,9 @@ jobs:
       - name: Download wheel artifacts
         uses: actions/download-artifact@v4
         with:
-          merge-multiple: true
-          pattern: pypi-wheels-*
           path: dist
+          pattern: "*-wheels"
+          merge-multiple: true
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1.8
         with:
