@@ -49,8 +49,7 @@ body:
     attributes:
       label: Repro
       description: Minimal code to reproduce this issue. Ideally this should be reproducible with the C library or the tree-sitter cli, do not suggest an editor or external tool.
-      value: |
-        // Example code that causes the issue
-        ...
+      placeholder: |
+        Example code that causes the issue
     validations:
       required: false
