@@ -7,9 +7,6 @@ on:
         type: string
       language-name:
         type: string
-      scanner-file:
-        type: string
-        default: src/scanner.c
       pr-branch:
         type: string
         default: update-parser-pr
@@ -47,10 +44,9 @@ jobs:
       - name: Update scanner
         if: inputs.parent-name != ''
         run: |-
-          sed > '${{inputs.scanner-file}}' \
-            -e 's/${{inputs.parent-name}}/${{inputs.language-name}}/g' \
-            'node_modules/tree-sitter-${{inputs.parent-name}}/${{inputs.scanner-file}}'
-          git diff '${{inputs.scanner-file}}'
+          sed 'node_modules/tree-sitter-${{inputs.parent-name}}/src/scanner.c' \
+            -e 's/${{inputs.parent-name}}/${{inputs.language-name}}/g' > src/scanner.c
+          git diff src/scanner.c
       - name: Create pull request body
         run: jq -r '${{inputs.jq-script}}' package-lock.json > '${{runner.temp}}/body.md'
       - name: Commit changes
