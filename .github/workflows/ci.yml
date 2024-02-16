@@ -3,6 +3,9 @@ name: CI
 on:
   workflow_call:
     inputs:
+      generate:
+        type: boolean
+        default: false
       test-grammar:
         type: boolean
         default: true
@@ -27,6 +30,12 @@ jobs:
           node-version: ${{vars.NODE_VERSION}}
       - name: Install dependencies
         run: npm install
+      - name: Generate parser
+        if: inputs.generate == true
+        continue-on-error: true
+        run: |-
+          node_modules/.bin/tree-sitter generate
+          git diff --exit-code HEAD -- src/parser.c
       - name: Run tests
         run: npm test
   rust-lib:
