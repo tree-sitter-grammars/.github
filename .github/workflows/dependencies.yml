@@ -25,6 +25,7 @@ jobs:
     name: Update dependencies
     runs-on: ubuntu-latest
     steps:
+      - run: printf '::notice::The dependencies workflow is deprecated. Use the update action instead.\n'
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
