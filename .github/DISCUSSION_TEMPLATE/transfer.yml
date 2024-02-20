@@ -1,0 +1,32 @@
+title: "Transfer "
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        It's not possible to transfer a parser to an organization that you're not an admin of,
+        and we will not hand admin rights to everyone. Instead, you must temporarily transfer the
+        repository to one of the [maintainers](https://github.com/orgs/tree-sitter-grammars/people).
+        They will handle the transfer to the org and you will retain write access to the repository.
+  - type: markdown
+    attributes:
+      value: |
+        **Don't forget to read our [contributing guidelines][contributing].**
+
+        [contributing]: https://github.com/tree-sitter-grammars/.github/blob/main/CONTRIBUTING.md
+  - type: input
+    attributes:
+      label: Repository URL
+      placeholder: https://github.com/USERNAME/tree-sitter-PARSER_NAME
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Parent parser name
+      description: The parser that this parser inherits from (if any).
+  - type: dropdown
+    attributes:
+      label: Multi-language
+      description: Does this parser contain multiple languages?
+      options: [Yes, No]
+      default: 1
