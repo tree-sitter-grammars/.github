@@ -1,0 +1,11 @@
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Please check the existing discussions first.**
+  - type: textarea
+    attributes:
+      label: Question
+    validations:
+      required: true
