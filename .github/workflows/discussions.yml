@@ -1,0 +1,51 @@
+name: Process discussions
+
+on:
+  discussion:
+    types: [created]
+
+permissions:
+  discussions: write
+
+jobs:
+  transfer:
+    name: Close transfer requests
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.repository.name == '.github' &&
+      github.event.discussion.category.name == 'Transfer'
+    steps:
+      - name: Post comment
+        uses: octokit/graphql-action@v2.x
+        with:
+          query: |
+            mutation comment($comment: String!, $nodeid: ID!) {
+              addDiscussionComment(input: {
+                body: $comment,
+                discussionId: $nodeid
+              }) {
+                clientMutationId
+                comment { id }
+              }
+            }
+          variables: |
+            nodeid: ${{github.event.discussion.node_id}}
+            comment: "${{vars.TRANSFER_CLOSE_COMMENT}}"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Close discussion
+        uses: octokit/graphql-action@v2.x
+        with:
+          query: |
+            mutation close($nodeid: ID!) {
+              closeDiscussion(input: {
+                discussionId: $nodeid,
+                reason: OUTDATED
+            }) {
+                clientMutationId
+              }
+            }
+          variables: |
+            nodeid: ${{github.event.discussion.node_id}}
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

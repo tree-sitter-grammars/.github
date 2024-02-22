@@ -1,9 +1,9 @@
 title: "Transfer "
-labels: [question]
+labels: [transfer]
 body:
   - type: markdown
     attributes:
-      value: |
+      value: >
         It's not possible to transfer a parser to an organization that you're not an admin of,
         and we will not hand admin rights to everyone. Instead, you must temporarily transfer the
         repository to one of the [maintainers](https://github.com/orgs/tree-sitter-grammars/people).
@@ -28,5 +28,7 @@ body:
     attributes:
       label: Multi-language
       description: Does this parser contain multiple languages?
-      options: [Yes, No]
+      options: ["Yes", "No"]
       default: 1
+    validations:
+      required: true
