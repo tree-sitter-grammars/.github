@@ -2,10 +2,10 @@
 
 ## Creating a Grammar
 
-We recommended creating the grammar using our [template], either via the
-"Use this template" button on the web interface, or the `--template` flag
-of the [gh cli]. Wait a moment for the initial setup to complete and then
-check the workflow summary for the next steps. The repository includes
+We recommend creating the grammar using our [template], either via the
+"Use this template" button on the web interface, or via the `--template`
+flag of the [gh cli]. Wait a moment for the initial setup to complete and
+then check the workflow summary for the next steps. The repository includes
 the MIT license by default, but you can change it to whatever you want.
 
 Make sure to read the Tree-sitter [documentation] before you start
