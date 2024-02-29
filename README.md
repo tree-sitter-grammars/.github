@@ -13,6 +13,10 @@ If you'd like to chat about tree-sitter, you can do so on [Matrix] or [Discord].
 If you want to create a grammar, or have already made one that you'd like to contribute,
 please read the [guidelines] and create a discussion [here][discussions] when your grammar is ready.
 
+> [!IMPORTANT]
+> We are not accepting new third-party grammar contributions at this time.
+> Please wait for this notice to be removed before requesting one.
+
 [Matrix]: https://matrix.to/#/#tree-sitter-chat:matrix.org
 [Discord]: https://discord.gg/w7nTvsVJhm
 [guidelines]: https://github.com/tree-sitter-grammars/.github/blob/main/CONTRIBUTING.md
