@@ -13,14 +13,14 @@ developing the grammar. The template handles most of the project setup
 for you. Just run these two commands in the grammar directory to get started:
 
 ```bash
-npm install --ignore-scripts
+npm i --ignore-scripts --omit peer
 export PATH="$PWD/node_modules/.bin:$PATH"
 ```
 
 Or, if you're developing on Windows using PowerShell:
 
 ```powershell
-npm install --ignore-scripts
+npm i --ignore-scripts --omit peer
 $env:PATH = "$PWD\node_modules\.bin;$env:PATH"
 ```
 
@@ -55,7 +55,7 @@ If you'd like your grammar to be included in this organization, please adhere to
 [template]: https://github.com/tree-sitter-grammars/template
 [gh cli]: https://cli.github.com/manual/gh_repo_create
 [documentation]: https://tree-sitter.github.io/tree-sitter/creating-parsers
-[STANDARD_CAPTURE_NAMES]: https://github.com/tree-sitter/tree-sitter/blob/master/highlight/src/lib.rs#L22-L73
+[STANDARD_CAPTURE_NAMES]: https://github.com/tree-sitter/tree-sitter/blob/master/highlight/src/lib.rs#L29-L80
 [treesitter-highlight-groups]: https://neovim.io/doc/user/treesitter.html#treesitter-highlight-groups
 [SemVer]: https://semver.org/
 [Conventional Commits]: https://www.conventionalcommits.org/en/v1.0.0/
