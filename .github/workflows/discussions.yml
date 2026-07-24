@@ -16,7 +16,7 @@ jobs:
       github.event.discussion.category.name == 'Transfer'
     steps:
       - name: Post comment
-        uses: octokit/graphql-action@v2.x
+        uses: octokit/graphql-action@v3.x
         with:
           query: |
             mutation comment($comment: String!, $nodeid: ID!) {
@@ -34,7 +34,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Close discussion
-        uses: octokit/graphql-action@v2.x
+        uses: octokit/graphql-action@v3.x
         with:
           query: |
             mutation close($nodeid: ID!) {
