@@ -20,4 +20,4 @@ please read the [guidelines] and create a discussion [here][discussions] when yo
 [Matrix]: https://matrix.to/#/#tree-sitter-chat:matrix.org
 [Discord]: https://discord.gg/w7nTvsVJhm
 [guidelines]: https://github.com/tree-sitter-grammars/.github/blob/main/CONTRIBUTING.md
-[discussions]: https://github.com/tree-sitter-grammars/.github/discussions/new?category=transfer
+[discussions]: https://github.com/orgs/tree-sitter-grammars/discussions/new?category=transfer
